@@ -50,7 +50,7 @@ d3.csv("vgsales.csv").then(data => {
 
     svg.append("text")
         .attr("x", width / 2)
-        .attr("y", height + margin.bottom - 40)
+        .attr("y", height + margin.bottom - 10)
         .attr("text-anchor", "middle")
         .style("font-size", "16px")
         .text("Publisher");
@@ -111,7 +111,7 @@ d3.csv("vgsales.csv").then(data => {
         .attr("y", annotationY)
         .style("font-size", "12px")
         .attr("alignment-baseline", "middle")
-        .text(`Top Publisher: ${topPublisher.publisher}`);
+        .text(`Publisher: ${topPublisher.publisher}`);
 
     svg.append("text")
         .attr("x", annotationX)
@@ -125,7 +125,16 @@ d3.csv("vgsales.csv").then(data => {
         .attr("y", annotationY + 30)
         .style("font-size", "12px")
         .attr("alignment-baseline", "middle")
-        .text(`Top Games: ${topPublisherGames.join(", ")}`);
+        .text("Top Games:");
+        
+    topPublisherGames.forEach((game, index) => {
+        svg.append("text")
+            .attr("x", annotationX)
+            .attr("y", annotationY + 45 + (index * 15))
+            .style("font-size", "12px")
+            .attr("alignment-baseline", "middle")
+            .text(game);
+    });
 
     // Create top games table
     const topGames = filteredData
@@ -146,4 +155,5 @@ d3.csv("vgsales.csv").then(data => {
     rows.append("td").text(d => d.Global_Sales.toFixed(2));
 }).catch(error => {
     console.error('Error loading or parsing the data:', error);
+
 });
