@@ -1,3 +1,4 @@
+
 const margin = { top: 20, right: 200, bottom: 120, left: 70 };
 const width = 800 - margin.left - margin.right;
 const height = 800 - margin.top - margin.bottom;
@@ -17,8 +18,8 @@ d3.csv("vgsales.csv").then(data => {
         d.Global_Sales = +d.Global_Sales;
     });
 
-    // Filter data for years 2010+
-    const filteredData = data.filter(d => d.Year >= 2010);
+    // Filter data for years 1980-1989
+    const filteredData = data.filter(d => d.Year >= 1980 && d.Year <= 1989);
 
     // Aggregate global sales by publisher
     const salesByPublisher = d3.rollup(filteredData, v => d3.sum(v, d => d.Global_Sales), d => d.Publisher);
@@ -50,7 +51,7 @@ d3.csv("vgsales.csv").then(data => {
 
     svg.append("text")
         .attr("x", width / 2)
-        .attr("y", height + margin.bottom + 100)
+        .attr("y", height + margin.bottom - 10)
         .attr("text-anchor", "middle")
         .style("font-size", "16px")
         .text("Publisher");
@@ -96,7 +97,7 @@ d3.csv("vgsales.csv").then(data => {
         .slice(0, 3)
         .map(d => d.Name);
 
-    const annotationX = width + 10;
+    const annotationX = width + 20;
     const annotationY = y(topPublisher.sales) - 30;
 
     svg.append("line")
@@ -155,5 +156,4 @@ d3.csv("vgsales.csv").then(data => {
     rows.append("td").text(d => d.Global_Sales.toFixed(2));
 }).catch(error => {
     console.error('Error loading or parsing the data:', error);
-
 });
