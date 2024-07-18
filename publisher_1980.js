@@ -1,4 +1,3 @@
-
 const margin = { top: 20, right: 200, bottom: 120, left: 70 };
 const width = 800 - margin.left - margin.right;
 const height = 800 - margin.top - margin.bottom;
