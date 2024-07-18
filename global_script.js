@@ -1,6 +1,6 @@
-const margin = { top: 10, right: 10, bottom: 30, left: 40 };
-const width = 480 - margin.left - margin.right;
-const height = 200 - margin.top - margin.bottom;
+const margin = { top: 20, right: 30, bottom: 40, left: 40 };
+const width = 800 - margin.left - margin.right;
+const height = 400 - margin.top - margin.bottom;
 
 const svg = d3.select("#chart")
     .append("svg")
@@ -44,10 +44,7 @@ d3.csv("vgsales.csv").then(data => {
     // Create axes
     svg.append("g")
         .attr("transform", `translate(0,${height})`)
-        .call(d3.axisBottom(x))
-        .selectAll("text")
-        .attr("transform", "rotate(-45)")
-        .style("text-anchor", "end");
+        .call(d3.axisBottom(x));
 
     svg.append("g")
         .call(d3.axisLeft(y));
