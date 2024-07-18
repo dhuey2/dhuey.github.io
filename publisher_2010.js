@@ -96,8 +96,9 @@ d3.csv("vgsales.csv").then(data => {
         .slice(0, 3)
         .map(d => d.Name);
 
-    const annotationX = width + 10;
-    const annotationY = y(topPublisher.sales) - 30;
+    // Calculate annotation position to keep it within bounds
+    const annotationX = Math.min(width - 200, x(topPublisher.publisher) + x.bandwidth() / 2 + 50);
+    const annotationY = Math.max(30, y(topPublisher.sales) - 30);
 
     svg.append("line")
         .attr("x1", x(topPublisher.publisher) + x.bandwidth() / 2)
@@ -126,7 +127,7 @@ d3.csv("vgsales.csv").then(data => {
         .style("font-size", "12px")
         .attr("alignment-baseline", "middle")
         .text("Top Games:");
-        
+
     topPublisherGames.forEach((game, index) => {
         svg.append("text")
             .attr("x", annotationX)
