@@ -17,9 +17,15 @@ d3.csv("vgsales.csv").then(data => {
         d.Global_Sales = +d.Global_Sales;
     });
 
+    // Log the parsed data
+    console.log("Parsed Data:", data);
+
     // Aggregate global sales by year
     const salesByYear = d3.rollup(data, v => d3.sum(v, d => d.Global_Sales), d => d.Year);
-    const salesByYearArray = Array.from(salesByYear, ([year, sales]) => ({ year, sales }));
+    const salesByYearArray = Array.from(salesByYear, ([year, sales]) => ({ year, sales })).sort((a, b) => a.year - b.year);
+
+    // Log the aggregated data
+    console.log("Sales by Year:", salesByYearArray);
 
     // Create scales
     const x = d3.scaleLinear()
