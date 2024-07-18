@@ -1,6 +1,7 @@
-const margin = { top: 20, right: 30, bottom: 40, left: 50 };
-const width = 800 - margin.left - margin.right;
-const height = 600 - margin.top - margin.bottom;
+// Sample D3.js script for creating the bar chart
+const margin = { top: 20, right: 30, bottom: 40, left: 40 };
+const width = 600 - margin.left - margin.right;
+const height = 300 - margin.top - margin.bottom;
 
 const svg = d3.select("#chart")
     .append("svg")
@@ -9,7 +10,6 @@ const svg = d3.select("#chart")
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-// Load the CSV file
 d3.csv("vgsales.csv").then(data => {
     // Parse the data
     data.forEach(d => {
@@ -17,15 +17,14 @@ d3.csv("vgsales.csv").then(data => {
         d.Global_Sales = +d.Global_Sales;
     });
 
-    // Define intervals
+    // Filter data for each time interval
     const intervals = [
         { name: "1980-1989", start: 1980, end: 1989 },
         { name: "1990-1999", start: 1990, end: 1999 },
         { name: "2000-2009", start: 2000, end: 2009 },
-        { name: "2010+", start: 2010, end: 2024 }
+        { name: "2010+", start: 2010, end: 2020 }
     ];
 
-    // Aggregate global sales by interval
     const salesByInterval = intervals.map(interval => {
         const filteredData = data.filter(d => d.Year >= interval.start && d.Year <= interval.end);
         const totalSales = d3.sum(filteredData, d => d.Global_Sales);
@@ -74,14 +73,14 @@ d3.csv("vgsales.csv").then(data => {
         .on("mouseout", function(event, d) {
             d3.select(this).attr("fill", "steelblue");
             svg.select(".tooltip").remove();
-        })
-        .on("click", function(event, d) {
-            const intervalPageMap = {
-                "1980-1989": "publishers_1980.html",
-                "1990-1999": "publishers_1990.html",
-                "2000-2009": "publishers_2000.html",
-                "2010+": "publishers_2010.html"
-            };
-            window.location.href = intervalPageMap[d.interval];
         });
+
+    // Add navigation to different pages on click
+    svg.selectAll(".bar")
+        .on("click", function(event, d) {
+            const interval = d.interval.replace("+", "plus").replace("-", "_");
+            location.href = `publishers_${interval}.html`;
+        });
+}).catch(error => {
+    console.error('Error loading or parsing the data:', error);
 });
