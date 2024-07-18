@@ -1,6 +1,5 @@
-
 const margin = { top: 20, right: 30, bottom: 40, left: 50 };
-const width = 800 - margin.left - margin.right;
+const width = 600 - margin.left - margin.right;
 const height = 600 - margin.top - margin.bottom;
 
 const svg = d3.select("#chart")
@@ -58,6 +57,46 @@ d3.csv("vgsales.csv").then(data => {
         .attr("width", x.bandwidth())
         .attr("height", d => height - y(d.sales))
         .attr("fill", "steelblue");
+
+    // Add annotation
+    const topPublisher = salesByPublisherArray[0];
+    const topPublisherGames = filteredData
+        .filter(d => d.Publisher === topPublisher.publisher)
+        .sort((a, b) => b.Global_Sales - a.Global_Sales)
+        .slice(0, 3)
+        .map(d => d.Name);
+
+    svg.append("text")
+        .attr("x", x(topPublisher.publisher) + x.bandwidth() / 2)
+        .attr("y", y(topPublisher.sales) - 10)
+        .attr("text-anchor", "middle")
+        .style("font-size", "12px")
+        .style("font-weight", "bold")
+        .text(`Sales: ${topPublisher.sales.toFixed(2)}M`);
+
+    svg.append("text")
+        .attr("x", x(topPublisher.publisher) + x.bandwidth() / 2)
+        .attr("y", y(topPublisher.sales) - 30)
+        .attr("text-anchor", "middle")
+        .style("font-size", "12px")
+        .text(`Top Games: ${topPublisherGames.join(", ")}`);
+
+    // Create top games table
+    const topGames = filteredData
+        .sort((a, b) => a.Rank - b.Rank)
+        .slice(0, 10);
+
+    const table = d3.select("#top-games-table").select("tbody");
+    table.selectAll("tr")
+        .data(topGames)
+        .enter().append("tr")
+        .html(d => `
+            <td>${d.Rank}</td>
+            <td>${d.Name}</td>
+            <td>${d.Publisher}</td>
+            <td>${d.Genre}</td>
+            <td>${d.Global_Sales.toFixed(2)}</td>
+        `);
 }).catch(error => {
     console.error('Error loading or parsing the data:', error);
 });

@@ -1,17 +1,43 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Top 10 Publishers (2010+)</title>
+    <title>Video Games from 2010+</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script defer src="publisher_2010.js"></script>
 </head>
 <body>
-    <h1>D3 Bar Chart - Top 10 Publishers (2010+)</h1>
-    <div id="chart"></div>
+    <h1>Video Games from 2010+</h1>
+    <ul class="facts">
+        <li>Fact 1 about the era.</li>
+        <li>Fact 2 about the era.</li>
+        <li>Fact 3 about the era.</li>
+        <li>Fact 4 about the era.</li>
+        <li>Fact 5 about the era.</li>
+    </ul>
+    <div class="content">
+        <div id="chart-container">
+            <h2>Top 10 Publishers (2010+)</h2>
+            <div id="chart"></div>
+        </div>
+        <div id="table-container">
+            <h2>Top 10 Highest Ranking Games (2010+)</h2>
+            <table id="top-games-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Title</th>
+                        <th>Publisher</th>
+                        <th>Genre</th>
+                        <th>Global Sales (millions)</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
     <button onclick="location.href='index.html'">Back to Global Sales</button>
 </body>
 </html>
