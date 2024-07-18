@@ -50,7 +50,7 @@ d3.csv("vgsales.csv").then(data => {
 
     svg.append("text")
         .attr("x", width / 2)
-        .attr("y", height + margin.bottom - 10)
+        .attr("y", height + margin.bottom - 20)
         .attr("text-anchor", "middle")
         .style("font-size", "16px")
         .text("Publisher");
@@ -96,7 +96,7 @@ d3.csv("vgsales.csv").then(data => {
         .slice(0, 3)
         .map(d => d.Name);
 
-    const annotationX = width + 20;
+    const annotationX = width + 10;
     const annotationY = y(topPublisher.sales) - 30;
 
     svg.append("line")
