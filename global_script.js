@@ -17,34 +17,41 @@ d3.csv("vgsales.csv").then(data => {
         d.Global_Sales = +d.Global_Sales;
     });
 
-    // Aggregate global sales by year
-    const salesByYear = d3.rollup(data, v => d3.sum(v, d => d.Global_Sales), d => d.Year);
-    const salesByYearArray = Array.from(salesByYear, ([year, sales]) => ({ year, sales })).sort((a, b) => a.year - b.year);
+    // Aggregate global sales by intervals
+    const salesByInterval = d3.rollup(data, v => d3.sum(v, d => d.Global_Sales), d => {
+        if (d.Year >= 1980 && d.Year < 1990) return "1980-1989";
+        if (d.Year >= 1990 && d.Year < 2000) return "1990-1999";
+        if (d.Year >= 2000 && d.Year < 2010) return "2000-2009";
+        if (d.Year >= 2010) return "2010+";
+        return "Unknown";
+    });
+
+    const salesByIntervalArray = Array.from(salesByInterval, ([interval, sales]) => ({ interval, sales }));
 
     // Create scales
     const x = d3.scaleBand()
-        .domain(salesByYearArray.map(d => d.year))
+        .domain(salesByIntervalArray.map(d => d.interval))
         .range([0, width])
         .padding(0.1);
 
     const y = d3.scaleLinear()
-        .domain([0, d3.max(salesByYearArray, d => d.sales)])
+        .domain([0, d3.max(salesByIntervalArray, d => d.sales)])
         .range([height, 0]);
 
     // Create axes
     svg.append("g")
         .attr("transform", `translate(0,${height})`)
-        .call(d3.axisBottom(x).tickFormat(d3.format("d")));
+        .call(d3.axisBottom(x));
 
     svg.append("g")
         .call(d3.axisLeft(y));
 
     // Append bars to the SVG
     svg.selectAll(".bar")
-        .data(salesByYearArray)
+        .data(salesByIntervalArray)
         .enter().append("rect")
         .attr("class", "bar")
-        .attr("x", d => x(d.year))
+        .attr("x", d => x(d.interval))
         .attr("y", d => y(d.sales))
         .attr("width", x.bandwidth())
         .attr("height", d => height - y(d.sales))
