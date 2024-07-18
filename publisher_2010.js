@@ -140,6 +140,7 @@ d3.csv("vgsales.csv").then(data => {
     rows.append("td").text(d => d.Rank);
     rows.append("td").text(d => d.Name);
     rows.append("td").text(d => d.Publisher);
+    rows.append("td").text(d => d.Year);
     rows.append("td").text(d => d.Genre);
     rows.append("td").text(d => d.Global_Sales.toFixed(2));
 }).catch(error => {
