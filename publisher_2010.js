@@ -50,7 +50,7 @@ d3.csv("vgsales.csv").then(data => {
 
     svg.append("text")
         .attr("x", width / 2)
-        .attr("y", height + margin.bottom - 20)
+        .attr("y", height + margin.bottom - 70)
         .attr("text-anchor", "middle")
         .style("font-size", "16px")
         .text("Publisher");
