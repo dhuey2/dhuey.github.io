@@ -26,7 +26,12 @@ d3.csv("vgsales.csv").then(data => {
         return "Unknown";
     });
 
-    const salesByIntervalArray = Array.from(salesByInterval, ([interval, sales]) => ({ interval, sales }));
+    // Convert the Map to an Array and sort it by intervals
+    const salesByIntervalArray = Array.from(salesByInterval, ([interval, sales]) => ({ interval, sales }))
+        .sort((a, b) => {
+            const order = ["1980-1989", "1990-1999", "2000-2009", "2010+"];
+            return order.indexOf(a.interval) - order.indexOf(b.interval);
+        });
 
     // Create scales
     const x = d3.scaleBand()
