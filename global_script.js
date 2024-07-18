@@ -59,10 +59,21 @@ d3.csv("vgsales.csv").then(data => {
         .attr("y", d => y(d.sales))
         .attr("width", x.bandwidth())
         .attr("height", d => height - y(d.sales))
-        .attr("fill", "steelblue")
+        .attr("fill", d => d.interval === "2010+" ? "steelblue" : "steelblue")
+        .style("cursor", d => d.interval === "2010+" ? "pointer" : "default")
+        .on("mouseover", function(event, d) {
+            if (d.interval === "2010+") {
+                d3.select(this).attr("fill", "purple");
+            }
+        })
+        .on("mouseout", function(event, d) {
+            if (d.interval === "2010+") {
+                d3.select(this).attr("fill", "steelblue");
+            }
+        })
         .on("click", function(event, d) {
             if (d.interval === "2010+") {
-                window.location.href = 'publishers_2010.html';
+                window.location.href = 'publishers.html';
             }
         });
 }).catch(error => {
