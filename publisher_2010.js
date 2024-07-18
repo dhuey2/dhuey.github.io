@@ -87,16 +87,15 @@ d3.csv("vgsales.csv").then(data => {
         .slice(0, 10);
 
     const table = d3.select("#top-games-table").select("tbody");
-    table.selectAll("tr")
+    const rows = table.selectAll("tr")
         .data(topGames)
-        .enter().append("tr")
-        .html(d => `
-            <td>${d.Rank}</td>
-            <td>${d.Name}</td>
-            <td>${d.Publisher}</td>
-            <td>${d.Genre}</td>
-            <td>${d.Global_Sales.toFixed(2)}</td>
-        `);
+        .enter().append("tr");
+
+    rows.append("td").text(d => d.Rank);
+    rows.append("td").text(d => d.Name);
+    rows.append("td").text(d => d.Publisher);
+    rows.append("td").text(d => d.Genre);
+    rows.append("td").text(d => d.Global_Sales.toFixed(2));
 }).catch(error => {
     console.error('Error loading or parsing the data:', error);
 });
