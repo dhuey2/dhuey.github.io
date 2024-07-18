@@ -17,20 +17,15 @@ d3.csv("vgsales.csv").then(data => {
         d.Global_Sales = +d.Global_Sales;
     });
 
-    // Log the parsed data
-    console.log("Parsed Data:", data);
-
     // Aggregate global sales by year
     const salesByYear = d3.rollup(data, v => d3.sum(v, d => d.Global_Sales), d => d.Year);
     const salesByYearArray = Array.from(salesByYear, ([year, sales]) => ({ year, sales })).sort((a, b) => a.year - b.year);
 
-    // Log the aggregated data
-    console.log("Sales by Year:", salesByYearArray);
-
     // Create scales
-    const x = d3.scaleLinear()
-        .domain(d3.extent(salesByYearArray, d => d.year))
-        .range([0, width]);
+    const x = d3.scaleBand()
+        .domain(salesByYearArray.map(d => d.year))
+        .range([0, width])
+        .padding(0.1);
 
     const y = d3.scaleLinear()
         .domain([0, d3.max(salesByYearArray, d => d.sales)])
@@ -44,19 +39,16 @@ d3.csv("vgsales.csv").then(data => {
     svg.append("g")
         .call(d3.axisLeft(y));
 
-    // Create line generator
-    const line = d3.line()
-        .x(d => x(d.year))
-        .y(d => y(d.sales));
-
-    // Append the line to the SVG
-    svg.append("path")
-        .datum(salesByYearArray)
-        .attr("fill", "none")
-        .attr("stroke", "steelblue")
-        .attr("stroke-width", 1.5)
-        .attr("d", line);
-
+    // Append bars to the SVG
+    svg.selectAll(".bar")
+        .data(salesByYearArray)
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", d => x(d.year))
+        .attr("y", d => y(d.sales))
+        .attr("width", x.bandwidth())
+        .attr("height", d => height - y(d.sales))
+        .attr("fill", "steelblue");
 }).catch(error => {
     console.error('Error loading or parsing the data:', error);
 });
