@@ -1,7 +1,7 @@
 // Sample D3.js script for creating the bar chart
 const margin = { top: 20, right: 30, bottom: 40, left: 40 };
-const width = 600 - margin.left - margin.right;
-const height = 300 - margin.top - margin.bottom;
+const width = 480 - margin.left - margin.right;
+const height = 240 - margin.top - margin.bottom;
 
 const svg = d3.select("#chart")
     .append("svg")
