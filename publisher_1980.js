@@ -48,14 +48,6 @@ d3.csv("vgsales.csv").then(data => {
     svg.append("g")
         .call(d3.axisLeft(y));
 
-    // Adjust the x-axis label position
-    svg.append("text")
-        .attr("x", width / 2)
-        .attr("y", height + margin.bottom - 10)
-        .attr("text-anchor", "middle")
-        .style("font-size", "16px")
-        .text("Publisher");
-
     svg.append("text")
         .attr("x", -height / 2)
         .attr("y", -margin.left / 2)
@@ -122,7 +114,7 @@ d3.csv("vgsales.csv").then(data => {
         .attr("alignment-baseline", "middle")
         .text(`Sales: ${topPublisher.sales.toFixed(2)}M`);
 
-        svg.append("text")
+    svg.append("text")
         .attr("x", annotationX)
         .attr("y", annotationY + 30)
         .style("font-size", "12px")

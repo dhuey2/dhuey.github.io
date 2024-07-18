@@ -7,95 +7,41 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script defer src="publisher_1980.js"></script>
-    <style>
-        body {
-            background: url('retro_tv.jpg') no-repeat center center fixed;
-            background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: 'Courier New', Courier, monospace;
-        }
-        .tv-screen {
-            background: white;
-            width: 50%;
-            height: 60%;
-            padding: 20px;
-            box-sizing: border-box;
-            overflow: auto;
-            border: 10px solid black;
-            box-shadow: 10px 10px 5px grey;
-        }
-        h1, h2 {
-            text-align: center;
-        }
-        .intro p, .facts {
-            text-align: center;
-            margin: 0 auto;
-            width: 80%;
-        }
-        .content {
-            display: flex;
-            justify-content: space-between;
-        }
-        .chart-container, .table-container {
-            width: 48%;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        button {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            font-size: 16px;
-        }
-    </style>
 </head>
 <body>
-    <div class="tv-screen">
-        <h1>Video Games from 1980-1989</h1>
-        <div class="intro">
-            <p>Below is a graph and table related to video games sales in 1980-1989. Here are some interesting facts about the video game industry during this time!</p>
-            <ul class="facts">
-                <li>Fact 1 about the era.</li>
-                <li>Fact 2 about the era.</li>
-                <li>Fact 3 about the era.</li>
-                <li>Fact 4 about the era.</li>
-            </ul>
-        </div>
-        <div class="content">
-            <div id="chart-container">
-                <h2>Top 10 Publishers (1980-1989)</h2>
-                <div id="chart"></div>
-            </div>
-            <div id="table-container">
-                <h2>Top 10 Highest Ranking Games (1980-1989)</h2>
-                <table id="top-games-table">
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Title</th>
-                            <th>Publisher</th>
-                            <th>Platform</th>
-                            <th>Year</th>
-                            <th>Genre</th>
-                            <th>Global Sales (millions)</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </div>
-        <button onclick="location.href='index.html'">Back to Global Sales</button>
+    <h1>Video Games from 1980-1989</h1>
+    <div class="intro">
+        <p>Below is a graph and table related to video games sales in 1980-1989. Here are some interesting facts about the video game industry during this time!</p>
+        <ul class="facts">
+            <li>Fact 1 about the era.</li>
+            <li>Fact 2 about the era.</li>
+            <li>Fact 3 about the era.</li>
+            <li>Fact 4 about the era.</li>
+        </ul>
     </div>
+    <div class="content">
+        <div id="chart-container">
+            <h2>Top 10 Publishers (1980-1989)</h2>
+            <div id="chart"></div>
+        </div>
+        <div id="table-container">
+            <h2>Top 10 Highest Ranking Games (1980-1989)</h2>
+            <table id="top-games-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Title</th>
+                        <th>Publisher</th>
+                        <th>Platform</th>
+                        <th>Year</th>
+                        <th>Genre</th>
+                        <th>Global Sales (millions)</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    <button onclick="location.href='index.html'">Back to Global Sales</button>
 </body>
 </html>
