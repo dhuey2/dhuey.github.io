@@ -48,6 +48,7 @@ d3.csv("vgsales.csv").then(data => {
     svg.append("g")
         .call(d3.axisLeft(y));
 
+    // Adjust the x-axis label position
     svg.append("text")
         .attr("x", width / 2)
         .attr("y", height + margin.bottom - 10)
@@ -88,64 +89,54 @@ d3.csv("vgsales.csv").then(data => {
             svg.select(".tooltip").remove();
         });
 
-        // Add annotation
-        const topPublisher = salesByPublisherArray[0];
-        const topPublisherGames = filteredData
-            .filter(d => d.Publisher === topPublisher.publisher)
-            .sort((a, b) => b.Global_Sales - a.Global_Sales)
-            .slice(0, 3)
-            .map(d => d.Name);
+    // Add annotation
+    const topPublisher = salesByPublisherArray[0];
+    const topPublisherGames = filteredData
+        .filter(d => d.Publisher === topPublisher.publisher)
+        .sort((a, b) => b.Global_Sales - a.Global_Sales)
+        .slice(0, 3)
+        .map(d => d.Name);
 
-        // Calculate annotation position to keep it within bounds
-        const annotationX = Math.min(width - 200, x(topPublisher.publisher) + x.bandwidth() / 2 + 50);
-        const annotationY = Math.max(30, y(topPublisher.sales) - 30);
+    // Calculate annotation position to keep it within bounds
+    const annotationX = Math.min(width - 200, x(topPublisher.publisher) + x.bandwidth() / 2 + 50);
+    const annotationY = Math.max(30, y(topPublisher.sales) - 30);
 
-        svg.append("line")
-            .attr("x1", x(topPublisher.publisher) + x.bandwidth() / 2)
-            .attr("y1", y(topPublisher.sales))
-            .attr("x2", annotationX - 10)
-            .attr("y2", annotationY + 10)
-            .attr("stroke", "black");
+    svg.append("line")
+        .attr("x1", x(topPublisher.publisher) + x.bandwidth() / 2)
+        .attr("y1", y(topPublisher.sales))
+        .attr("x2", annotationX - 10)
+        .attr("y2", annotationY + 10)
+        .attr("stroke", "black");
 
+    svg.append("text")
+        .attr("x", annotationX)
+        .attr("y", annotationY)
+        .style("font-size", "12px")
+        .attr("alignment-baseline", "middle")
+        .text(`Publisher: ${topPublisher.publisher}`);
+
+    svg.append("text")
+        .attr("x", annotationX)
+        .attr("y", annotationY + 15)
+        .style("font-size", "12px")
+        .attr("alignment-baseline", "middle")
+        .text(`Sales: ${topPublisher.sales.toFixed(2)}M`);
+
+        svg.append("text")
+        .attr("x", annotationX)
+        .attr("y", annotationY + 30)
+        .style("font-size", "12px")
+        .attr("alignment-baseline", "middle")
+        .text("Top Games:");
+
+    topPublisherGames.forEach((game, index) => {
         svg.append("text")
             .attr("x", annotationX)
-            .attr("y", annotationY)
+            .attr("y", annotationY + 45 + (index * 15))
             .style("font-size", "12px")
             .attr("alignment-baseline", "middle")
-            .text(`Publisher: ${topPublisher.publisher}`);
-
-        svg.append("text")
-            .attr("x", annotationX)
-            .attr("y", annotationY + 15)
-            .style("font-size", "12px")
-            .attr("alignment-baseline", "middle")
-            .text(`Sales: ${topPublisher.sales.toFixed(2)}M`);
-
-        svg.append("text")
-            .attr("x", annotationX)
-            .attr("y", annotationY + 30)
-            .style("font-size", "12px")
-            .attr("alignment-baseline", "middle")
-            .text("Top Games:");
-
-        topPublisherGames.forEach((game, index) => {
-            svg.append("text")
-                .attr("x", annotationX)
-                .attr("y", annotationY + 45 + (index * 15))
-                .style("font-size", "12px")
-                .attr("alignment-baseline", "middle")
-                .text(game);
-        });
-                // Adjust the x-axis label position
-        svg.select(".x-axis-label").remove(); // Remove existing label if any
-
-        svg.append("text")
-            .attr("class", "x-axis-label")
-            .attr("x", width / 2)
-            .attr("y", height + margin.bottom - 40)
-            .attr("text-anchor", "middle")
-            .style("font-size", "16px")
-            .text("Publisher");
+            .text(game);
+    });
 
     // Create top games table
     const topGames = filteredData
