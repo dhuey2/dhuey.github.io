@@ -73,7 +73,7 @@ d3.csv("vgsales.csv").then(data => {
         })
         .on("click", function(event, d) {
             if (d.interval === "2010+") {
-                window.location.href = 'publishers.html';
+                window.location.href = 'publishers_2010.html';
             }
         });
 }).catch(error => {
