@@ -5,7 +5,7 @@ const height = 240 - margin.top - margin.bottom;
 const svg = d3.select("#chart")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom + 175)
+    .attr("height", height + margin.top + margin.bottom + 250)
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
