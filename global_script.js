@@ -1,15 +1,11 @@
-const bottomScreenWidth = 540; // 90% of 600px
-const bottomScreenHeight = 240; // Adjust the height as needed
-const margin = { top: 20, right: 30, bottom: 50, left: 50 };
-
-// Calculate the width and height of the graph based on the bottom screen dimensions
-const width = bottomScreenWidth - margin.left - margin.right;
-const height = bottomScreenHeight - margin.top - margin.bottom;
+const margin = { top: 10, right: 10, bottom: 40, left: 40 };
+const width = 480 - margin.left - margin.right;
+const height = 240 - margin.top - margin.bottom + 300;
 
 const svg = d3.select("#chart")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("height", height + margin.top + margin.bottom + 100)
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
