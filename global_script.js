@@ -1,4 +1,4 @@
-const margin = { top: 10, right: 10, bottom: 40, left: 40 };
+const margin = { top: 10, right: 20, bottom: 40, left: 40 };
 const width = 480 - margin.left - margin.right;
 const height = 240 - margin.top - margin.bottom + 100;
 
@@ -45,8 +45,8 @@ d3.csv("vgsales.csv").then(data => {
 
     // Create axes
     svg.append("g")
-        .attr("transform", `translate(0,${height})`)
         .attr("class", "x-axis")
+        .attr("transform", `translate(0,${height})`)
         .call(d3.axisBottom(x));
 
     svg.append("g")
