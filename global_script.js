@@ -49,6 +49,7 @@ d3.csv("vgsales.csv").then(data => {
         .call(d3.axisBottom(x));
 
     svg.append("g")
+        .attr("class", "y-axis")
         .call(d3.axisLeft(y));
 
     // Append bars to the SVG
