@@ -7,7 +7,7 @@ const svg = d3.select("#chart")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom + 250)
     .append("g")
-    .attr("transform", `translate(${margin.left + 100},${margin.top})`);
+    .attr("transform", `translate(${margin.left + 50},${margin.top})`);
 
 // Load the CSV file
 d3.csv("vgsales.csv").then(data => {
